@@ -1,0 +1,7 @@
+{
+  "name": "lincep",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
