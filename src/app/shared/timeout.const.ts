@@ -1,0 +1,2 @@
+export const TABLE_SEARCH_DEBOUNCE_TIME = 300;
+export const ALERT_DURATION = 2500;
