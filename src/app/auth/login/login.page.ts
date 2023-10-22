@@ -76,18 +76,19 @@ export class LoginPage implements OnInit {
               key: 'token',
               value: userData.token,
             });
+          }),
+          concatMap(() => {
+            return this.authService.currentUser();
           })
         )
         .subscribe({
           next: () => {
-            this.router.navigate(['/'], {
-              replaceUrl: true,
-            });
-            this.menu.enable(true);
             Preferences.get({
               key: 'showWelcomeMessage',
             }).then(result => {
               const value = result.value;
+              this.router.navigate(['/home']);
+              this.menu.enable(true);
               if (value !== 'false') {
                 this.presentToast(CONSTANTS.WELCOME_MESSAGE);
               }
@@ -132,4 +133,9 @@ export class LoginPage implements OnInit {
     await toast.present();
   }
 
+  ionViewWillLeave() {
+    this.subs$.forEach((sub$) => {
+      sub$.unsubscribe();
+    });
+  }
 }

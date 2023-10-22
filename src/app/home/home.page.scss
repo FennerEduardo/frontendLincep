@@ -1,0 +1,49 @@
+ion-grid.main {
+  margin-top: 10%;
+
+  ion-row.row-main {
+    margin-top: 2%;
+
+    ion-row.header {
+      display: none;
+      font-weight: bold;
+      padding: 0.5em;
+      border-radius: 0.2em;
+      background: var(--ion-color-light);
+    }
+
+    ion-row.body {
+      font-weight: lighter;
+      border-radius: 0.2em;
+      padding: 1em;
+      border: 1px solid var(--ion-color-primary);
+      background: var(--ion-color-light);
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  ion-grid.main {
+    margin-top: 10%;
+
+    ion-row.row-main {
+      margin-top: 2%;
+
+      ion-row.header {
+        display: flex;
+        font-weight: bold;
+        padding: 0.5em;
+        border-radius: 0.2em;
+        background: var(--ion-color-light);
+      }
+
+      ion-row.body {
+        font-weight: lighter;
+        border-radius: 0.2em;
+        padding: 1em;
+        border: 1px solid var(--ion-color-primary);
+        background: var(--ion-color-light);
+      }
+    }
+  }
+}

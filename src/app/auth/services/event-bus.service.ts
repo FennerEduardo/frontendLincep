@@ -30,7 +30,6 @@ export class EmitEvent {
   constructor(public name: any, public value?: any) {}
 }
 
-// this works like a communication channel
 export enum Events {
   CurrentUserFetched,
   LoggedIn,

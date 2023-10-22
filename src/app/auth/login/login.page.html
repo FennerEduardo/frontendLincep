@@ -12,19 +12,13 @@
   </ion-header>
 
   <ion-grid>
-    <ion-row class="ion-justify-content-center ion-align-items-center row-login-auth">
+    <ion-row class="ion-justify-content-center ion-align-items-center main-row">
       <ion-col size="12" size-xl="4" size-md="8">
-        <ion-row class="ion-justify-content-center">
-          <ion-col size="8">
-            <a [routerLink]="'/'">
-              Home
-            </a>
-          </ion-col>
-        </ion-row>
         <form [formGroup]="loginForm" (ngSubmit)="doLogin()" (keyup.enter)="doLogin()">
           <ion-list class="inputs-list" lines="full">
             <ion-item class="input-item">
-              <ion-input type="email" placeholder="Email" formControlName="email" clearInput  inputmode="email"></ion-input>
+              <ion-input type="email" placeholder="Email" formControlName="email" clearInput
+                inputmode="email"></ion-input>
             </ion-item>
             <div class="error-container">
               <ng-container *ngFor="let validation of validation_messages.email">
@@ -41,10 +35,9 @@
 
             <ion-item class="input-item ion-margin-top">
               <app-show-hide-password>
-                  <ion-input type="password" placeholder="Contraseña" formControlName="password"
-                      clearInput></ion-input>
+                <ion-input type="password" placeholder="Contraseña" formControlName="password" clearInput></ion-input>
               </app-show-hide-password>
-          </ion-item>
+            </ion-item>
             <div class="error-container">
               <ng-container *ngFor="let validation of validation_messages.password">
                 <div class="error-message" *ngIf="
@@ -72,8 +65,8 @@
           </ion-row>
 
           <ion-row class="other-auth-options-row ion-justify-content-center">
-            <ion-button class="forgot-btn" fill="clear" [routerLink]="['/auth/forgot-password']">
-              ¿Olvidaste tu contraseña?
+            <ion-button class="forgot-btn" fill="clear" [routerLink]="['/home']">
+             Inicio
             </ion-button>
             <ion-button class="signup-btn" fill="clear" [routerLink]="['/auth/signup']">
               !Regístrate!

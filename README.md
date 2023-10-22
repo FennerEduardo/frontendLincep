@@ -9,5 +9,6 @@ This repository contains the front for the Lincep application, and the steps for
 - **Node commands to management project:**
     ```
     - Run npm install
+    - Run ionic serve
     ```
 Ready! The API now works!

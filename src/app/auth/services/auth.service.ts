@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable, catchError, from, switchMap, throwError } from 'rxjs';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { EMPTY, Observable, Subscription, catchError, from, retry, switchMap, throwError } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { UserModel } from '../models/auth.models';
+import { AuthSignUpModel, UserModel } from '../models/auth.models';
 import { EmitEvent, EventBusService, Events } from './event-bus.service';
 import { StorageService } from './storage.service';
 import { LoadingController, ModalController } from '@ionic/angular';
@@ -34,20 +34,33 @@ export class AuthService {
 
   currentUser(): Observable<any> {
     return this.http.post(`${this.backendUrl}/api/current-user`, null)
-    .pipe(
-      switchMap((data) => {
-        const currentUser = new UserModel();
-        Object.assign(currentUser, data);
-        return from(this.setCurrentUser(currentUser));
-      }),
-      catchError((err) => {
-        return throwError(() => err.error);
-      })
-    );
+      .pipe(
+        switchMap((data) => {
+          const currentUser = new UserModel();
+          Object.assign(currentUser, data);
+          return from(this.setCurrentUser(currentUser));
+        }),
+        catchError((err) => {
+          return throwError(() => err.error);
+        })
+      );
   }
 
-  logout(): Observable<any> {
-    return this.http.post(`${this.backendUrl}/auth/logout`, {});
+  logout(): Subscription {
+    this.closeAnyPageOverInstance();
+    return this.http.post(`${this.backendUrl}/auth/logout`, {})
+      .pipe(
+        retry(0),
+        catchError((err) => {
+          this.doLogout();
+          return EMPTY;
+        }) 
+      )
+      .subscribe({
+        complete: () => {
+          this.doLogout();
+        },
+      });
   }
 
   private async setCurrentUser(
@@ -87,4 +100,18 @@ export class AuthService {
       replaceUrl: true,
     });
   }
+
+  public signUp( data: AuthSignUpModel): Observable<any> {
+    return this.http
+      .post<any>(
+        `${this.backendUrl}/auth/register`,
+        data
+      )
+      .pipe(
+        catchError((error: HttpErrorResponse) => {
+          return throwError(() => error.error);
+        })
+      );
+  }
+
 }

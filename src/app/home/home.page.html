@@ -1,13 +1,74 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>home</ion-title>
+    <ion-title> Bienvenido {{currentUser? currentUser.username: 'al Home'}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+  <ion-header>
     <ion-toolbar>
-      <ion-title size="large">home</ion-title>
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title size="large">
+        Home
+      </ion-title>
     </ion-toolbar>
   </ion-header>
+
+
+  <ion-grid class="main">
+    <ion-row class="ion-justify-content-center ion-items-align-center row-main">
+      <ion-col size="10">
+        Listado de Usuarios
+      </ion-col>
+      <ion-col size="10">
+        <ion-grid>
+          <ion-row class="ion-justify-content-center header">
+            <ion-col size="12" size-md="1">Id</ion-col>
+            <ion-col size="12" size-md="2">Username</ion-col>
+            <ion-col size="12" size-md="3">Email</ion-col>
+            <ion-col size="12" size-md="2">Proyectos</ion-col>
+            <ion-col size="12" size-md="3">Acciones</ion-col>
+          </ion-row>
+
+          <ion-row *ngFor="let user of users" class="ion-justify-content-center body">
+            <ion-col size="12" size-md="1">{{ user.id }}</ion-col>
+            <ion-col size="12" size-md="2">{{ user.username }}</ion-col>
+            <ion-col size="12" size-md="3">{{ user.email }}</ion-col>
+            <ion-col size="12" size-md="2">
+              <ion-button fill="clear" (click)="openNewProjectModal(user)">
+                <ion-icon name="add-outline"></ion-icon>
+              </ion-button>
+              <ng-container *ngIf="user.Projects.length; else elseTemplate">
+                <ion-list>
+                  <ion-item *ngFor="let project of user.Projects">
+                    {{ project.name }}
+                  </ion-item>
+                </ion-list>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <p>Sin proyectos</p>
+              </ng-template>
+
+            </ion-col>
+            <ion-col size="12" size-md="3">
+              <ion-button fill="clear" (click)="openEditModal(user)">
+                <ion-icon name="create-outline"></ion-icon>
+              </ion-button>
+              <ion-button color="danger" *ngIf="user_id != user.id" fill="clear" (click)="onOpenDeleteUserAlert(user)">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button color="tertiary" (click)="openNewModal()">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 </ion-content>
+

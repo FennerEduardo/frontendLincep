@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Agregar Usuario
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="closeModal()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+    <ion-list lines="full">
+      <ion-item>
+        <ion-label position="stacked">Correo electrónico</ion-label>
+        <ion-input type="email" formControlName="email" aria-label="email"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Nombre de usuario</ion-label>
+        <ion-input formControlName="username" aria-label="username"></ion-input>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="stacked">Contraseña</ion-label>
+        <app-show-hide-password>
+          <ion-input type="password" formControlName="password" clearInput aria-label="password"></ion-input>
+        </app-show-hide-password>
+      </ion-item>
+
+      <ion-item class="input-item">
+        <ion-label position="stacked">Confirmar contraseña</ion-label>
+        <app-show-hide-password>
+          <ion-input type="password" formControlName="confirm_password" clearInput
+            aria-label="confirm_password"></ion-input>
+        </app-show-hide-password>
+      </ion-item>
+
+
+    </ion-list>
+
+    <ion-row class="ion-justify-content-center">
+      <ion-col size="6">
+        <ion-button type="submit" expand="block">
+          Agregar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

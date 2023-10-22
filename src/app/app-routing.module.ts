@@ -14,14 +14,18 @@ const routes: Routes = [
     loadChildren: () => import('./auth/login/login.module').then(m => m.LoginPageModule)
   },
   {
-    path: 'register',
-    loadChildren: () => import('./auth/register/register.module').then(m => m.RegisterPageModule)
+    path: 'auth/logout',
+    loadComponent: () =>
+      import('./auth/logout.component').then((x) => x.LogoutComponent),
+  },
+  {
+    path: 'auth/signup',
+    loadChildren: () => import('./auth/signup/signup.module').then(m => m.SignupPageModule)
   },
   {
     path: 'home',
     loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   }
-
 
 ];
 
